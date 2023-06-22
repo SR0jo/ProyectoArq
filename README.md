@@ -2,7 +2,7 @@
 ## Integrantes
 Lucas Nievas y Santiago Rojo
 
-# Descripcion
+## Descripcion
 Este programa esta diseñado para detectar pendrives, a la vez que puede crear, eliminar y mostrar archivos y carpetas mediante comandos
 
 ## Instalación
@@ -17,9 +17,26 @@ pip install psutil
 
 ### Windows
 
-Para ejecutar este programa en Windows, necesitas tener Python 3 instalado en tu sistema. También necesitas instalar las bibliotecas pywin32 y psutil usando pip. Abre un símbolo del sistema e introduce los siguientes comandos:
+Para ejecutar este programa en Windows, necesitas tener Python 3 instalado en tu sistema. También necesitas instalar las bibliotecas `pywin32` y `psutil` usando pip. Abre un símbolo del sistema e introduce los siguientes comandos:
 
 ```sh
 pip install pywin32
 pip install psutil
 ```
+
+## Como Usar
+
+Para usar el programa, esribe en la consola de comandos los comandos que quieras ejecutar. Esta es la lista:
+```sh
+help: Muestra los comandos
+close: cerrar programa
+pens: lista de pendrives
+open: pide la direccion a usar
+create txt: crea un archivo de texto
+create dir: crea una carpeta
+back: quita la direccion actual
+list: da una lista de los archivos y carpetas con su informacion
+list all: da la lista de todos los archivos que hay incluyendo los que estan adentro de carpetas
+delete: borra un archivo o carpeta
+```
+Ten en cuenta que la mayoria de comandos requieren que selecciones una direccion correspondiente a la de un pendrive con el comando `open`
