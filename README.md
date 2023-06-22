@@ -26,7 +26,7 @@ pip install psutil
 
 ## Como Usar
 
-Para usar el programa, esribe en la consola de comandos los comandos que quieras ejecutar. Esta es la lista:
+Para usar el programa, esribe en la consola los comandos que quieras ejecutar. Esta es la lista:
 ```sh
 help: Muestra los comandos
 close: cerrar programa
