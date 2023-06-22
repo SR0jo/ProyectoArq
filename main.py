@@ -4,27 +4,34 @@ import psutil
 import os
 import threading
 import sys
-import platform
 
+
+# Comprobar que la direccion pertenece a un pendrive
 def comparar_primeras_dos_letras(string, array):
     for elemento in array:
         if string[:2] == elemento[:2]:
             return True
     return False
+
+
+# Comprobar si el disco es un pendrive
 def is_pendrive(disk):
     return 'removable' in str(disk)
 
+
+# Obtener la lista de pendrive
 def get_pendrives():
-    system = platform.system()
-    if system == 'Windows':
-        disks = psutil.disk_partitions()
-    elif system == 'Linux':
-        disks = psutil.disk_partitions()
-    pendrives = [disk.device for disk in disks if is_pendrive(disk)]
-    return pendrives
+    disks = psutil.disk_partitions()
+    _pendrives = [disk.device for disk in disks if is_pendrive(disk)]
+    return _pendrives
+
+
 debe_detenerse = False
 direccion = ""
 pendrives = get_pendrives()
+
+
+# Detectar los cambios del pendrive (conectado o desconectado)
 def detection():
     pendrives_tamanio = -1
     global pendrives
@@ -39,11 +46,13 @@ def detection():
                 pendrives = get_pendrives()
                 print("Se ha desconectado un pendrive")
                 direccion = ""
-            if pendrives_tamanio < len(get_pendrives())  and pendrives_tamanio != -1:
+            if pendrives_tamanio < len(get_pendrives()) and pendrives_tamanio != -1:
                 pendrives = get_pendrives()
                 print("Se ha conectado un pendrive")
             pendrives_tamanio = len(get_pendrives())
 
+
+# Lista de comandos
 def comandos():
     global debe_detenerse
     global pendrives
@@ -95,7 +104,7 @@ def comandos():
                     archi.close()
 
                     escribir = ""
-                    print("Escribir? S o cualquier tecla")
+                    print("Escribir? Ingrese 'S'")
                     if input(escribir) == "S":
                         contenido = input()
                         with open(file_path, "w") as f:
@@ -153,7 +162,7 @@ def comandos():
         elif comand == "delete":
             if direccion != "":
                 print("Nombre del archivo/carpeta:")
-                nombre =input()
+                nombre = input()
                 direccion_completa = os.path.join(direccion, nombre)
                 if os.path.exists(direccion_completa):
                     if os.path.isfile(direccion_completa):
@@ -170,6 +179,8 @@ def comandos():
         else:
             print("Comando invalido")
 
+
+# Hilos del sistema
 mi_hilo = threading.Thread(target=detection)
 mi_hilo2 = threading.Thread(target=comandos)
 
@@ -178,4 +189,3 @@ mi_hilo2.start()
 
 mi_hilo2.join()
 sys.exit()
-
